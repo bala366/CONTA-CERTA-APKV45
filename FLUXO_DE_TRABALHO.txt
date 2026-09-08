@@ -1,0 +1,7 @@
+1. Criar repositório no GitHub.
+2. Enviar TODO o conteúdo desta pasta (inclusive .github).
+3. Abrir a aba Actions.
+4. Abrir "Compilar APK Conta Certa V045 MASTER".
+5. Clicar Run workflow.
+6. Ao terminar, baixar o artefato "Conta_Certa_V045_MASTER_APK".
+7. Dentro dele estará Conta_Certa_V045_MASTER.apk.
