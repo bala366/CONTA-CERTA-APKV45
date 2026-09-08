@@ -1,0 +1,47 @@
+name: Compilar APK Conta Certa V045 MASTER
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configurar Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Dar permissao ao Gradle Wrapper
+        run: |
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+          fi
+
+      - name: Compilar APK Conta Certa
+        run: gradle clean :app:assembleDebug --stacktrace
+
+      - name: Preparar APK V045
+        run: |
+          mkdir -p apk-final
+          cp app/build/outputs/apk/debug/*.apk apk-final/Conta_Certa_V045_MASTER.apk
+
+      - name: Publicar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Conta_Certa_V045_MASTER_APK
+          path: apk-final/Conta_Certa_V045_MASTER.apk
+          if-no-files-found: error
